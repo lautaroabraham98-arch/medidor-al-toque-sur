@@ -1,22 +1,22 @@
 import type { AnchorHTMLAttributes, ReactNode } from "react";
-import { BUSINESS, buildGenericMessage, whatsappUrl, type TramiteValue } from "@/lib/site";
+import { BUSINESS, buildGenericMessage, whatsappUrl, type Variant } from "@/lib/site";
 import { trackConversion } from "@/lib/tracking";
 
 type LinkProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href"> & {
   children: ReactNode;
   ubicacion: string;
-  tramite?: TramiteValue | "" | undefined;
+  variant?: Variant | undefined;
   localidad?: string | undefined;
 };
 
-export function WhatsAppLink({ children, ubicacion, tramite, localidad, onClick, ...rest }: LinkProps) {
+export function WhatsAppLink({ children, ubicacion, variant, localidad, onClick, ...rest }: LinkProps) {
   return (
     <a
-      href={whatsappUrl(buildGenericMessage(tramite))}
+      href={whatsappUrl(buildGenericMessage(variant))}
       target="_blank"
       rel="noopener noreferrer"
       onClick={(e) => {
-        trackConversion("whatsapp_click", { tramite: tramite || undefined, localidad, ubicacion });
+        trackConversion("whatsapp_click", { variante: variant, localidad, ubicacion });
         onClick?.(e);
       }}
       {...rest}
@@ -26,12 +26,12 @@ export function WhatsAppLink({ children, ubicacion, tramite, localidad, onClick,
   );
 }
 
-export function PhoneLink({ children, ubicacion, tramite, localidad, onClick, ...rest }: LinkProps) {
+export function PhoneLink({ children, ubicacion, variant, localidad, onClick, ...rest }: LinkProps) {
   return (
     <a
       href={BUSINESS.phoneHref}
       onClick={(e) => {
-        trackConversion("phone_click", { tramite: tramite || undefined, localidad, ubicacion });
+        trackConversion("phone_click", { variante: variant, localidad, ubicacion });
         onClick?.(e);
       }}
       {...rest}

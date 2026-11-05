@@ -143,16 +143,20 @@ function send(name: ConversionName, params: Record<string, string>) {
   });
 }
 
-export function trackConversion(
-  name: ConversionName,
-  params: { tramite?: string | undefined; localidad?: string | undefined; ubicacion?: string | undefined },
-) {
+/**
+ * Sends a conversion. `localidad` and `variante` (landing variant from ?tramite=)
+ * always go out; any other non-empty params (conexion, uso, cantidad, instalacion,
+ * ubicacion) are passed through, plus utm_* from the stored attribution.
+ */
+export function trackConversion(name: ConversionName, params: Record<string, string | undefined>) {
   if (typeof window === "undefined" || state === "blocked") return;
   const { gclid: _gclid, ...utm } = captureAttribution();
+  const extra: Record<string, string> = {};
+  for (const [k, v] of Object.entries(params)) if (v) extra[k] = v;
   const payload: Record<string, string> = {
-    tramite: params.tramite || "sin_especificar",
+    ...extra,
+    variante: params.variante || "general",
     localidad: params.localidad || "sin_especificar",
-    ...(params.ubicacion ? { ubicacion: params.ubicacion } : {}),
     ...utm,
   };
   if (state === "pending") {
