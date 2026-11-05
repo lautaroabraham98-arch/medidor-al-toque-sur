@@ -41,8 +41,9 @@ function Privacidad() {
           <section>
             <h2>Qué datos pedimos y para qué</h2>
             <p>
-              En el formulario pedimos tipo de trámite, localidad, nombre y número de WhatsApp. Los usamos
-              únicamente para responderte y coordinar el trámite que pediste. Este sitio no guarda esos datos
+              En el formulario pedimos datos del trabajo (tipo de conexión, uso, cantidad de medidores y estado
+              de la instalación), localidad, calle y altura (opcional), nombre y número de WhatsApp. Los usamos
+              únicamente para responderte y pasarte el presupuesto que pediste. Este sitio no guarda esos datos
               en un servidor: al enviar el formulario se abre WhatsApp con tu mensaje para que vos lo envíes.
               WhatsApp (Meta) trata esa conversación según sus propias políticas.
             </p>
@@ -52,7 +53,7 @@ function Privacidad() {
             <p>
               Usamos la etiqueta de Google Ads (Google LLC) para medir visitas que llegan desde anuncios y
               acciones como enviar el formulario, tocar WhatsApp o llamar. Para eso Google puede usar cookies y
-              recibe datos técnicos (identificador del clic en el anuncio, página visitada, tipo de trámite y
+              recibe datos técnicos (identificador del clic en el anuncio, página visitada, datos del trabajo y
               localidad elegidos, y parámetros de la campaña). No enviamos a Google tu nombre ni tu número.
               La finalidad es medir resultados y mejorar los anuncios.
             </p>

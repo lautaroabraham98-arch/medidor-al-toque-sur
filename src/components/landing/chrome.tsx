@@ -1,13 +1,13 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Phone } from "lucide-react";
-import { BUSINESS, type TramiteValue } from "@/lib/site";
+import { BUSINESS, type Variant } from "@/lib/site";
 import { Isotipo, WhatsAppIcon } from "./icons";
 import { PhoneLink, WhatsAppLink } from "./contact";
 
-type Ctx = { tramite?: TramiteValue | "" | undefined; localidad?: string | undefined };
+type Ctx = { variant?: Variant | undefined; localidad?: string | undefined };
 
-export function SiteHeader({ tramite, localidad }: Ctx) {
+export function SiteHeader({ variant, localidad }: Ctx) {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/80">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-3 px-4 sm:h-16">
@@ -22,7 +22,7 @@ export function SiteHeader({ tramite, localidad }: Ctx) {
         <div className="flex shrink-0 items-center gap-2">
           <PhoneLink
             ubicacion="header"
-            tramite={tramite}
+            variant={variant}
             localidad={localidad}
             aria-label={`Llamar al ${BUSINESS.phoneDisplay}`}
             className="inline-flex size-10 items-center justify-center gap-2 rounded-full border border-input bg-card text-sm font-semibold text-primary transition-colors hover:bg-secondary sm:h-10 sm:w-auto sm:px-4"
@@ -32,7 +32,7 @@ export function SiteHeader({ tramite, localidad }: Ctx) {
           </PhoneLink>
           <WhatsAppLink
             ubicacion="header"
-            tramite={tramite}
+            variant={variant}
             localidad={localidad}
             aria-label="Escribir por WhatsApp"
             className="inline-flex size-10 items-center justify-center gap-2 rounded-full bg-whatsapp text-sm font-semibold text-whatsapp-foreground transition-colors hover:bg-whatsapp-strong sm:h-10 sm:w-auto sm:px-4"
@@ -46,7 +46,7 @@ export function SiteHeader({ tramite, localidad }: Ctx) {
   );
 }
 
-export function MobileContactBar({ tramite, localidad }: Ctx) {
+export function MobileContactBar({ variant, localidad }: Ctx) {
   // The floating button appears once the visitor scrolls past the hero form.
   const [showFloat, setShowFloat] = useState(false);
   useEffect(() => {
@@ -60,7 +60,7 @@ export function MobileContactBar({ tramite, localidad }: Ctx) {
     <>
       <WhatsAppLink
         ubicacion="flotante"
-        tramite={tramite}
+        variant={variant}
         localidad={localidad}
         aria-label="Abrir chat de WhatsApp"
         tabIndex={showFloat ? 0 : -1}
@@ -79,7 +79,7 @@ export function MobileContactBar({ tramite, localidad }: Ctx) {
         <div className="grid grid-cols-2 gap-2">
           <PhoneLink
             ubicacion="barra_inferior"
-            tramite={tramite}
+            variant={variant}
             localidad={localidad}
             className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-primary/25 bg-secondary text-[15px] font-semibold text-primary active:scale-[0.98]"
           >
@@ -88,7 +88,7 @@ export function MobileContactBar({ tramite, localidad }: Ctx) {
           </PhoneLink>
           <WhatsAppLink
             ubicacion="barra_inferior"
-            tramite={tramite}
+            variant={variant}
             localidad={localidad}
             className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-whatsapp text-[15px] font-semibold text-whatsapp-foreground active:scale-[0.98]"
           >
@@ -101,7 +101,7 @@ export function MobileContactBar({ tramite, localidad }: Ctx) {
   );
 }
 
-export function SiteFooter({ tramite, localidad }: Ctx) {
+export function SiteFooter({ variant, localidad }: Ctx) {
   return (
     <footer className="border-t border-border bg-surface pb-28 md:pb-10">
       <div className="mx-auto max-w-6xl px-4 pt-10">
@@ -114,7 +114,7 @@ export function SiteFooter({ tramite, localidad }: Ctx) {
               <br />
               <PhoneLink
                 ubicacion="footer"
-                tramite={tramite}
+                variant={variant}
                 localidad={localidad}
                 className="font-semibold text-primary underline-offset-4 hover:underline"
               >
