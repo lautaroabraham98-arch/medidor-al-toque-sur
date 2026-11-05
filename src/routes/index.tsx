@@ -329,7 +329,7 @@ function Landing() {
               <button
                 type="button"
                 onClick={goToForm}
-                className="inline-flex h-12 flex-1 items-center justify-center rounded-xl bg-primary-foreground px-6 text-base font-semibold text-primary transition-opacity hover:opacity-90"
+                className="inline-flex h-12 items-center sm:flex-1 justify-center rounded-xl bg-primary-foreground px-6 text-base font-semibold text-primary transition-opacity hover:opacity-90"
               >
                 Iniciar mi trámite
               </button>
@@ -337,7 +337,7 @@ function Landing() {
                 ubicacion="cta_final"
                 tramite={tramite}
                 localidad={localidad}
-                className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-whatsapp px-6 text-base font-semibold text-whatsapp-foreground transition-colors hover:bg-whatsapp-strong"
+                className="inline-flex h-12 items-center sm:flex-1 justify-center gap-2 rounded-xl bg-whatsapp px-6 text-base font-semibold text-whatsapp-foreground transition-colors hover:bg-whatsapp-strong"
               >
                 <WhatsAppIcon className="size-5" />
                 Hablar por WhatsApp
