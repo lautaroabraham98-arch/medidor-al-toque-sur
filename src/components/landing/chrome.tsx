@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { Phone } from "lucide-react";
 import { BUSINESS, type TramiteValue } from "@/lib/site";
 import { Isotipo, WhatsAppIcon } from "./icons";
@@ -46,6 +47,15 @@ export function SiteHeader({ tramite, localidad }: Ctx) {
 }
 
 export function MobileContactBar({ tramite, localidad }: Ctx) {
+  // The floating button appears once the visitor scrolls past the hero form.
+  const [showFloat, setShowFloat] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setShowFloat(window.scrollY > 320);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <>
       <WhatsAppLink
@@ -53,7 +63,11 @@ export function MobileContactBar({ tramite, localidad }: Ctx) {
         tramite={tramite}
         localidad={localidad}
         aria-label="Abrir chat de WhatsApp"
-        className="fixed right-4 bottom-[84px] z-40 inline-flex size-14 animate-pop items-center justify-center rounded-full bg-whatsapp text-whatsapp-foreground shadow-float transition-transform hover:scale-105 md:right-6 md:bottom-6"
+        tabIndex={showFloat ? 0 : -1}
+        aria-hidden={!showFloat}
+        className={`fixed right-4 bottom-[84px] z-40 inline-flex size-14 items-center justify-center rounded-full bg-whatsapp text-whatsapp-foreground shadow-float transition-all duration-300 hover:scale-105 md:right-6 md:bottom-6 ${
+          showFloat ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
+        }`}
       >
         <WhatsAppIcon className="size-7" />
       </WhatsAppLink>
