@@ -5,8 +5,8 @@ import { trackConversion } from "@/lib/tracking";
 type LinkProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href"> & {
   children: ReactNode;
   ubicacion: string;
-  tramite?: TramiteValue | "";
-  localidad?: string;
+  tramite?: TramiteValue | "" | undefined;
+  localidad?: string | undefined;
 };
 
 export function WhatsAppLink({ children, ubicacion, tramite, localidad, onClick, ...rest }: LinkProps) {

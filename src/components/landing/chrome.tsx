@@ -4,7 +4,7 @@ import { BUSINESS, type TramiteValue } from "@/lib/site";
 import { Isotipo, WhatsAppIcon } from "./icons";
 import { PhoneLink, WhatsAppLink } from "./contact";
 
-type Ctx = { tramite?: TramiteValue | ""; localidad?: string };
+type Ctx = { tramite?: TramiteValue | "" | undefined; localidad?: string | undefined };
 
 export function SiteHeader({ tramite, localidad }: Ctx) {
   return (

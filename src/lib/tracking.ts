@@ -85,8 +85,9 @@ async function resolveCountry(): Promise<string | null> {
       const i = line.indexOf("=");
       if (i > 0) kv[line.slice(0, i)] = line.slice(i + 1).trim();
     }
-    if (kv.h && kv.h !== window.location.host && kv.h !== window.location.hostname) return null;
-    const loc = kv.loc;
+    const host = kv["h"];
+    if (host && host !== window.location.host && host !== window.location.hostname) return null;
+    const loc = kv["loc"];
     if (!loc || loc === "XX" || loc === "T1") return null;
     return loc.toUpperCase();
   } catch {
@@ -144,7 +145,7 @@ function send(name: ConversionName, params: Record<string, string>) {
 
 export function trackConversion(
   name: ConversionName,
-  params: { tramite?: string; localidad?: string; ubicacion?: string },
+  params: { tramite?: string | undefined; localidad?: string | undefined; ubicacion?: string | undefined },
 ) {
   if (typeof window === "undefined" || state === "blocked") return;
   const { gclid: _gclid, ...utm } = captureAttribution();
