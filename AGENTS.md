@@ -28,3 +28,10 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+
+- Business constants, form schema and message builders live in `src/lib/site.ts` (pure, unit-tested in `src/test/landing-rules.test.ts`) so copy rules stay testable.
+- All Google Ads tag loading and conversion events go through `src/lib/tracking.ts`; components never call `gtag` directly, so IDs/labels and the consent gate live in one place.
+- Consent route is "no banner": the tag loads only when `/cdn-cgi/trace` resolves a country outside EEA/UK/CH and no Global Privacy Control; unresolved region blocks it.
+- No backend: leads are delivered via a prefilled wa.me message, keeping the landing static and fast.
