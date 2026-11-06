@@ -55,14 +55,14 @@ const CHIPS = [
 
 const STEPS = [
   { title: "Nos contás tu caso", text: "Por el formulario o mandando una foto por WhatsApp." },
-  { title: "Te pasamos presupuesto cerrado", text: "Sin cargo, con todo lo que hace falta para tu caso." },
+  { title: "Te pasamos presupuesto", text: "Sin cargo." },
   {
-    title: "Dejamos la instalación lista",
-    text: "Acondicionamos o hacemos la instalación y el pilar, y firmamos el DCI.",
+    title: "Hacemos la instalación y firmamos el DCI",
+    text: "Hacemos la instalación y el pilar si hace falta, y firmamos el DCI.",
   },
   {
-    title: "Gestionamos el alta",
-    text: "Presentamos el trámite ante la distribuidora y seguimos el expediente hasta que colocan el medidor.",
+    title: "Presentamos el trámite de alta",
+    text: "Presentamos el trámite de alta y seguimos el expediente hasta que colocan el medidor.",
   },
 ];
 
@@ -70,7 +70,7 @@ const INCLUDES = [
   {
     icon: Zap,
     title: "Instalación y pilar",
-    text: "Si tu instalación o tu pilar no están en condiciones, los dejamos bajo norma. Si ya están bien, vamos directo al certificado.",
+    text: "Si tu instalación o tu pilar no están en condiciones, los dejamos bajo norma. Si ya están bien, seguimos directo.",
     items: [] as string[],
   },
   {
@@ -85,13 +85,12 @@ const INCLUDES = [
   },
   {
     icon: Gauge,
-    title: "Alta del medidor",
+    title: "Trámite de alta",
     text: "",
     items: [
-      "Armado y presentación del legajo",
-      "Medidores monofásicos y trifásicos",
-      "Seguimiento del expediente",
-      "Respuesta a observaciones de la distribuidora",
+      "Armamos y presentamos la documentación",
+      "Solicitamos que la distribuidora vaya a colocar el medidor",
+      "Seguimos el expediente hasta que lo colocan",
     ],
   },
 ];
@@ -168,8 +167,8 @@ function Landing() {
                 {headline}
               </h1>
               <p className="mt-2.5 text-[15px] leading-snug text-muted-foreground md:mt-4 md:text-lg">
-                Hacemos la instalación y el pilar si hace falta, firmamos el DCI y gestionamos el alta del
-                medidor. Presupuesto sin cargo por WhatsApp.
+                Hacemos la instalación y el pilar si hace falta, firmamos el DCI y presentamos el trámite de
+                alta ante la distribuidora. Un solo trabajo, de punta a punta.
               </p>
               <ul className="mt-3 flex flex-wrap gap-1.5 md:mt-6 md:gap-2">
                 {CHIPS.map(({ icon: Icon, text }) => (
@@ -228,7 +227,7 @@ function Landing() {
               Qué incluye
             </h2>
             <p className="mt-2 text-[15px] text-muted-foreground">
-              Un solo trabajo, de punta a punta: vos no tenés que hacer trámites por separado.
+              Un solo trabajo, de punta a punta: instalación, certificado y trámite con el mismo matriculado.
             </p>
             <div className="mt-6 grid gap-3 md:grid-cols-3 md:gap-4">
               {INCLUDES.map(({ icon: Icon, title, text, items }) => (

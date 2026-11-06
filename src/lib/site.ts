@@ -30,13 +30,13 @@ export function variantFromParam(param: string | undefined | null): Variant {
 export function headlineFor(param: string | undefined | null): string {
   switch (variantFromParam(param)) {
     case "medidor":
-      return "Medidor nuevo de luz: instalación, DCI y trámite con electricista matriculado";
+      return "Electricista matriculado para tu medidor nuevo: instalación, DCI y trámite";
     case "dci":
-      return "Certificado DCI para tu medidor nuevo, con electricista matriculado";
+      return "Electricista matriculado para tu certificado DCI y alta de medidor";
     case "pilar":
-      return "Pilar de luz y medidor nuevo, con electricista matriculado";
+      return "Electricista matriculado para tu pilar de luz y medidor nuevo";
     default:
-      return "Medidor nuevo de luz en Zona Sur, con electricista matriculado";
+      return "Electricista matriculado: instalación, DCI y trámite de tu medidor nuevo";
   }
 }
 
@@ -62,8 +62,7 @@ export const CANTIDADES = [
   { value: "2", label: "2", phrase: "2" },
   { value: "3", label: "3", phrase: "3" },
   { value: "4", label: "4", phrase: "4" },
-  { value: "5", label: "5", phrase: "5" },
-  { value: "6+", label: "6+", phrase: "6 o más" },
+  { value: "mas-de-4", label: "Más de 4", phrase: "más de 4" },
 ] as const satisfies readonly Option<string>[];
 
 export const INSTALACIONES = [
