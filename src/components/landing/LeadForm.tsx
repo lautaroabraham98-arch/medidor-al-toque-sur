@@ -59,6 +59,10 @@ export function LeadForm({ variant, localidad, onLocalidadChange }: Props) {
     setAttribution(captureAttribution());
   }, []);
 
+  function clearError(k: keyof FieldErrors) {
+    setErrors((prev) => (prev[k] ? { ...prev, [k]: undefined } : prev));
+  }
+
   function focusField(name: string) {
     formRef.current?.querySelector<HTMLElement>(`[name="${name}"]`)?.focus();
   }
@@ -188,7 +192,7 @@ export function LeadForm({ variant, localidad, onLocalidadChange }: Props) {
             {CONEXIONES.map((o) => {
               const [main, hint] = o.label.split(" (");
               return (
-                <Choice key={o.value} name="conexion" value={o.value} checked={conexion === o.value} onChange={setConexion} invalid={!!errors.conexion}>
+                <Choice key={o.value} name="conexion" value={o.value} checked={conexion === o.value} onChange={(v) => { setConexion(v); clearError("conexion"); }} invalid={!!errors.conexion}>
                   <span className="block font-semibold">{main}</span>
                   {hint && <span className="block text-[11px] leading-tight font-normal text-muted-foreground">{hint.replace(")", "")}</span>}
                 </Choice>
@@ -198,7 +202,7 @@ export function LeadForm({ variant, localidad, onLocalidadChange }: Props) {
 
           <ChoiceGroup legend="Uso" name="uso" error={errors.uso} cols="grid-cols-2 sm:grid-cols-4">
             {USOS.map((o) => (
-              <Choice key={o.value} name="uso" value={o.value} checked={uso === o.value} onChange={setUso} invalid={!!errors.uso}>
+              <Choice key={o.value} name="uso" value={o.value} checked={uso === o.value} onChange={(v) => { setUso(v); clearError("uso"); }} invalid={!!errors.uso}>
                 <span className="font-semibold">{o.label}</span>
               </Choice>
             ))}
@@ -212,7 +216,7 @@ export function LeadForm({ variant, localidad, onLocalidadChange }: Props) {
             cols="grid-cols-6"
           >
             {CANTIDADES.map((o) => (
-              <Choice key={o.value} name="cantidad" value={o.value} checked={cantidad === o.value} onChange={setCantidad} invalid={!!errors.cantidad} compact>
+              <Choice key={o.value} name="cantidad" value={o.value} checked={cantidad === o.value} onChange={(v) => { setCantidad(v); clearError("cantidad"); }} invalid={!!errors.cantidad} compact>
                 <span className="font-semibold">{o.label}</span>
               </Choice>
             ))}
@@ -220,7 +224,7 @@ export function LeadForm({ variant, localidad, onLocalidadChange }: Props) {
 
           <ChoiceGroup legend="¿Cómo está tu instalación?" name="instalacion" error={errors.instalacion} cols="grid-cols-1 sm:grid-cols-2">
             {INSTALACIONES.map((o) => (
-              <Choice key={o.value} name="instalacion" value={o.value} checked={instalacion === o.value} onChange={setInstalacion} invalid={!!errors.instalacion} align="left">
+              <Choice key={o.value} name="instalacion" value={o.value} checked={instalacion === o.value} onChange={(v) => { setInstalacion(v); clearError("instalacion"); }} invalid={!!errors.instalacion} align="left">
                 <span className="font-medium">{o.label}</span>
               </Choice>
             ))}
@@ -237,7 +241,7 @@ export function LeadForm({ variant, localidad, onLocalidadChange }: Props) {
               name="localidad"
               className="field"
               value={localidad}
-              onChange={(e) => onLocalidadChange(e.target.value as Localidad | "")}
+              onChange={(e) => { onLocalidadChange(e.target.value as Localidad | ""); clearError("localidad"); }}
               aria-invalid={!!errors.localidad}
               aria-describedby={errors.localidad ? "localidad-error" : undefined}
             >
@@ -266,7 +270,7 @@ export function LeadForm({ variant, localidad, onLocalidadChange }: Props) {
               placeholder="Ej: Av. Hipólito Yrigoyen 1234"
               className="field"
               value={direccion}
-              onChange={(e) => setDireccion(e.target.value)}
+              onChange={(e) => { setDireccion(e.target.value); clearError("direccion"); }}
               aria-invalid={!!errors.direccion}
               aria-describedby={errors.direccion ? "direccion-error" : undefined}
             />
@@ -286,7 +290,7 @@ export function LeadForm({ variant, localidad, onLocalidadChange }: Props) {
               placeholder="Tu nombre"
               className="field"
               value={nombre}
-              onChange={(e) => setNombre(e.target.value)}
+              onChange={(e) => { setNombre(e.target.value); clearError("nombre"); }}
               aria-invalid={!!errors.nombre}
               aria-describedby={errors.nombre ? "nombre-error" : undefined}
             />
@@ -307,7 +311,7 @@ export function LeadForm({ variant, localidad, onLocalidadChange }: Props) {
               placeholder="11 2345-6789"
               className="field"
               value={whatsapp}
-              onChange={(e) => setWhatsapp(e.target.value)}
+              onChange={(e) => { setWhatsapp(e.target.value); clearError("whatsapp"); }}
               aria-invalid={!!errors.whatsapp}
               aria-describedby={errors.whatsapp ? "whatsapp-error" : undefined}
             />
@@ -334,7 +338,7 @@ export function LeadForm({ variant, localidad, onLocalidadChange }: Props) {
           type="submit"
           className="group inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-primary px-5 text-base font-semibold text-primary-foreground shadow-card transition-colors hover:bg-primary-strong"
         >
-          {step === 1 ? "Continuar" : "Pedir presupuesto sin cargo"}
+          {step === 1 ? "Continuar" : "Pedir presupuesto"}
           <ArrowRight className="size-5 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
         </button>
       </div>

@@ -155,8 +155,8 @@ export function trackConversion(name: ConversionName, params: Record<string, str
   for (const [k, v] of Object.entries(params)) if (v) extra[k] = v;
   const payload: Record<string, string> = {
     ...extra,
-    variante: params.variante || "general",
-    localidad: params.localidad || "sin_especificar",
+    variante: params["variante"] || "general",
+    localidad: params["localidad"] || "sin_especificar",
     ...utm,
   };
   if (state === "pending") {
