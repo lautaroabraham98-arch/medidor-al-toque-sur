@@ -1,21 +1,21 @@
 import { describe, expect, it } from "vitest";
-import { buildLeadMessage, headlineFor, leadSchema, normalizeArPhone, stepOneSchema, variantFromParam } from "@/lib/site";
+import { CANTIDADES, buildLeadMessage, headlineFor, leadSchema, normalizeArPhone, stepOneSchema, variantFromParam } from "@/lib/site";
 
 describe("headline by ?tramite", () => {
   it("medidor", () => {
     expect(headlineFor("medidor")).toBe(
-      "Medidor nuevo de luz: instalación, DCI y trámite con electricista matriculado",
+      "Electricista matriculado para tu medidor nuevo: instalación, DCI y trámite",
     );
   });
   it("dci", () => {
-    expect(headlineFor("dci")).toBe("Certificado DCI para tu medidor nuevo, con electricista matriculado");
+    expect(headlineFor("dci")).toBe("Electricista matriculado para tu certificado DCI y alta de medidor");
   });
   it("pilar", () => {
-    expect(headlineFor("pilar")).toBe("Pilar de luz y medidor nuevo, con electricista matriculado");
+    expect(headlineFor("pilar")).toBe("Electricista matriculado para tu pilar de luz y medidor nuevo");
   });
   it("missing or unknown falls back to the generic headline", () => {
-    expect(headlineFor(undefined)).toBe("Medidor nuevo de luz en Zona Sur, con electricista matriculado");
-    expect(headlineFor("otra-cosa")).toBe("Medidor nuevo de luz en Zona Sur, con electricista matriculado");
+    expect(headlineFor(undefined)).toBe("Electricista matriculado: instalación, DCI y trámite de tu medidor nuevo");
+    expect(headlineFor("otra-cosa")).toBe("Electricista matriculado: instalación, DCI y trámite de tu medidor nuevo");
     expect(variantFromParam("xyz")).toBe("general");
   });
 });
@@ -35,8 +35,11 @@ describe("Argentine WhatsApp validation", () => {
 });
 
 describe("two-step form", () => {
-  const stepOne = { conexion: "trifasico", uso: "local", cantidad: "6+", instalacion: "sin-pilar" };
+  const stepOne = { conexion: "trifasico", uso: "local", cantidad: "mas-de-4", instalacion: "sin-pilar" };
 
+  it("cantidad options are 1, 2, 3, 4 and Más de 4", () => {
+    expect(CANTIDADES.map((o) => o.label)).toEqual(["1", "2", "3", "4", "Más de 4"]);
+  });
   it("step 1 requires conexión, uso, cantidad and instalación", () => {
     expect(stepOneSchema.safeParse({ conexion: "", uso: "", cantidad: "", instalacion: "" }).success).toBe(false);
     expect(stepOneSchema.safeParse(stepOne).success).toBe(true);
@@ -63,17 +66,17 @@ describe("prefilled WhatsApp message", () => {
       "Hola Lautaro, necesito un medidor nuevo monofásico para vivienda, cantidad: 1, instalación: ya tengo pilar en condiciones, en Lanús. Mi nombre es Ana.",
     );
   });
-  it("includes the street when given and 6+ as '6 o más'", () => {
+  it("includes the street when given and 'Más de 4' as 'más de 4'", () => {
     const msg = buildLeadMessage({
       conexion: "trifasico",
       uso: "obra",
-      cantidad: "6+",
+      cantidad: "mas-de-4",
       instalacion: "sin-pilar",
       localidad: "Quilmes",
       direccion: "Mitre 123",
       nombre: "Ana",
     });
-    expect(msg).toContain("medidor nuevo trifásico para obra o terreno, cantidad: 6 o más");
+    expect(msg).toContain("medidor nuevo trifásico para obra o terreno, cantidad: más de 4");
     expect(msg).toContain("en Mitre 123, Quilmes.");
   });
   it("adds campaign reference when gclid/utm are present", () => {

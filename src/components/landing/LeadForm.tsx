@@ -213,7 +213,7 @@ export function LeadForm({ variant, localidad, onLocalidadChange }: Props) {
             hint="Si es un edificio o varias unidades, indicá cuántos"
             name="cantidad"
             error={errors.cantidad}
-            cols="grid-cols-6"
+            cols="grid-cols-[repeat(4,minmax(0,1fr))_minmax(0,1.9fr)]"
           >
             {CANTIDADES.map((o) => (
               <Choice key={o.value} name="cantidad" value={o.value} checked={cantidad === o.value} onChange={(v) => { setCantidad(v); clearError("cantidad"); }} invalid={!!errors.cantidad} compact>
